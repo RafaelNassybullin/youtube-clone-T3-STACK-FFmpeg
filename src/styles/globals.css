@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-logo-orange: #fdab5f;
+  --color-text-orange: #fdba75;
+  --color-text-gray: #888888;
+  --color-dark-hard: #1c1a1a;
+  --color-dark-middle: #373332;
+  --color-card-dark: #292524;
+  --color-just-white: #ffffff;
+  --color-like-green: #49de80;
+}
+
+html {
+  background-color: black;
+}
+
+@layer base {
+  .category {
+    @apply mr-3 grid h-[32px] cursor-pointer place-items-center rounded-[10px] border-[1px] border-[color:var(--color-dark-middle)] bg-[color:var(--color-dark-middle)] px-2 text-[20px] capitalize text-[color:var(--color-text-gray)] hover:border-[var(--color-text-orange)] hover:text-[var(--color-text-orange)];
+  }
+}
+
+.bg:after {
+  background: url("/bg.webp") center repeat;
+  content: "";
+  background-size: 150px 150px;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.5;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+#nprogress .bar {
+  background: var(--color-text-orange) !important;
+  height: 7px;
+}
+
+#nprogress .spinner-icon {
+  width: 30px;
+  height: 30px;
+  border-width: 5px;
+  display: none;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}

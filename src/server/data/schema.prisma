@@ -1,0 +1,75 @@
+//sudo prisma migrate dev
+//sudo prisma generate
+//sudo prisma studio
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./db.sqlite"
+}
+
+model Video {
+  id              Int              @id @default(autoincrement())
+  title           String
+  videoUrl        String
+  description     String
+  durationTime    String
+  videoUuidSlug   String           @unique
+  createdAt       DateTime         @default(now())
+  category        Category[]
+  views           Views?
+  timeStampVideo  TimeStampVideos?
+  likes           Likes?
+  preroll         Preroll?
+  thumbnailSprite ThumbnailSprite?
+}
+
+//many to many
+model Category {
+  id    Int     @id @default(autoincrement())
+  video Video[]
+  name  String
+}
+
+//one to one
+model Views {
+  id         Int    @id @default(autoincrement())
+  videoId    Int    @unique
+  video      Video  @relation(fields: [videoId], references: [id])
+  viewsCount String
+}
+
+//one to one
+model TimeStampVideos {
+  id             Int    @id @default(autoincrement())
+  videoId        Int    @unique
+  video          Video  @relation(fields: [videoId], references: [id])
+  videoTimeStamp String
+}
+
+//one to one
+model Likes {
+  id         Int    @id @default(autoincrement())
+  videoId    Int    @unique
+  video      Video  @relation(fields: [videoId], references: [id])
+  likesCount String
+}
+
+//one to one
+model Preroll {
+  id          Int    @id @default(autoincrement())
+  videoId     Int    @unique
+  video       Video  @relation(fields: [videoId], references: [id])
+  prerollLink String
+}
+
+model ThumbnailSprite {
+  id      Int    @id @default(autoincrement())
+  videoId Int    @unique
+  video   Video  @relation(fields: [videoId], references: [id])
+  sprite  String
+}
